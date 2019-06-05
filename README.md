@@ -1,26 +1,37 @@
-# Lifen Backend Challenge
+# Planning de Garde level 1 #
 
- Looking for a job? Check out our [open positions](https://www.welcometothejungle.co/companies/lifen/jobs).
+## Technical view ##
 
-## Guidelines
+[![Build Status](https://travis-ci.org/ncarenton/backend-jobs.svg?branch=master)](https://travis-ci.org/ncarenton/backend-jobs)
+[![Coverage Status](https://coveralls.io/repos/github/ncarenton/backend-jobs/badge.svg?branch=master)](https://coveralls.io/github/ncarenton/backend-jobs?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a4c374253bff4bd29ca84c61183097c8)](https://app.codacy.com/app/ncarenton/backend-jobs?utm_source=github.com&utm_medium=referral&utm_content=ncarenton/backend-jobs&utm_campaign=Badge_Grade_Dashboard)
 
-- clone this repo (do **not** fork it)
-- solve the levels in ascending order **in the language of your choosing**
-- commit your code at the end of each level
-- once you are done, ping someone from Lifen (ideally via our jobs page)
+### Required configuration ###
 
-You can have a look at the higher levels, but please do the **simplest thing** that could work for the level you're currently solving.
+-   JDK 1.11
 
-Disclaimer: the levels become more complex over time, so you will probably have to re-use some code and adapt it to the new requirements.
+### Technologies ###
 
-A good way to solve this is by using OOP and adding new layers of abstraction only when they become necessary.
-Don't hesitate to write [shameless code](http://red-badger.com/blog/2014/08/20/i-spent-3-days-with-sandi-metz-heres-what-i-learned/) at first, and then refactor it in the next levels.
+-   Programming: [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)
+-   Tests: [JUnit](http://junit.org/), [AssertJ](http://joel-costigliola.github.io/assertj/index.html)
+-   Code generation: [Lombok](https://projectlombok.org)
 
-For higher levels we are interested in seeing code that is:
-- clean
-- extensible
-- robust (don't overlook edge cases, use exceptions where needed, ...)
+## Execution ##
 
-Please also keep in mind that those challenges are not only about coding, there are also about facing novelty, complexity and communication with other developers who are not necessarily experts on the language you have chosen.
+### Compilation ###
+```console
+./gradlew clean build
+```
 
-Ready ? -> [let's start !](https://github.com/honestica/backend-jobs/tree/master/level1)
+### Running ###
+
+#### Using gradle ####
+```console
+./gradlew run --args="-i [input_file] -o [output_file]"
+```
+
+#### Using start script ####
+```console
+unzip build/distributions/planning-de-garde.zip
+./planning-de-garde/bin/planning-de-garde -i [input_file] -o [output_file]
+```

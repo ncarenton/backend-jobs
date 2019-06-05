@@ -1,0 +1,10 @@
+{
+  "workers": [
+    { "id": 1, "first_name": "Julie", "price_per_shift": 230 },
+    { "id": 2, "first_name": "Marc", "price_per_shift": 100 },
+    { "id": 3, "first_name": "Antoine", "price_per_shift": 230 },
+    { "id": 4, "first_name": "Emilie", "price_per_shift": 100 }
+  ],
+  "shifts": [
+  ]
+}
