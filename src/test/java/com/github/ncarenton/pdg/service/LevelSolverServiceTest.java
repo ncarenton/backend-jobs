@@ -49,7 +49,7 @@ public class LevelSolverServiceTest {
     }
 
     @Test
-    public void solve_should_log_error_if_ValidationException() throws URISyntaxException {
+    public void solve_should_log_error_if_ValidationException_invalid_field() throws URISyntaxException {
 
         // Given
         Path resourcePath = getResourcePath("/level1/data_invalid_field_right_type.json");
@@ -68,7 +68,28 @@ public class LevelSolverServiceTest {
     }
 
     @Test
-    public void solve_should_work() throws IOException, JSONException, URISyntaxException {
+    public void solve_should_log_error_if_ValidationException_invalid_enum_field() throws URISyntaxException {
+
+        // Given
+        Path resourcePath = getResourcePath("/level2/data_invalid_enum_field_right_type.json");
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        // Then
+        levelSolverService.solve(
+                uncheck(() -> Files.newInputStream(resourcePath)),
+                uncheck(() -> outputStream));
+
+        //Then
+        assertThat(outputStream.toString()).isEmpty();
+        assertThat(TestAppender.messages)
+                .isNotNull()
+                .hasSize(2)
+                .extracting("level")
+                .contains("ERROR");
+    }
+
+    @Test
+    public void solve_should_work_level1() throws IOException, JSONException, URISyntaxException {
 
         //Given
         Path resourcePath = getResourcePath("/level1/data.json");
@@ -81,6 +102,22 @@ public class LevelSolverServiceTest {
 
         // Then
         JSONAssert.assertEquals(getResourceAsString("/level1/output.json"), outputStream.toString(), true);
+    }
+
+    @Test
+    public void solve_should_work_level2() throws IOException, JSONException, URISyntaxException {
+
+        //Given
+        Path resourcePath = getResourcePath("/level2/data.json");
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        // When
+        levelSolverService.solve(
+                uncheck(() -> Files.newInputStream(resourcePath)),
+                uncheck(() -> outputStream));
+
+        // Then
+        JSONAssert.assertEquals(getResourceAsString("/level2/output.json"), outputStream.toString(), true);
     }
 
     private <T> Supplier<T> uncheck(StreamSupplier<T> ioSupplier) {

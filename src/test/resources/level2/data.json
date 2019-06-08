@@ -1,9 +1,9 @@
 {
   "workers": [
-    { "id": 1, "first_name": "Julie", "price_per_shift": 230 },
-    { "id": 2, "first_name": "Marc", "price_per_shift": 100 },
-    { "id": 3, "first_name": "Antoine", "price_per_shift": 230 },
-    { "id": 4, "first_name": "Emilie", "price_per_shift": 100 }
+    { "id": 1, "first_name": "Julie", "status": "medic" },
+    { "id": 2, "first_name": "Marc", "status": "medic" },
+    { "id": 3, "first_name": "Antoine", "status": "interne" },
+    { "id": 4, "first_name": "Emilie", "status": "medic" }
   ],
   "shifts": [
     { "id": 1, "planning_id": 1, "user_id": 1, "start_date": "2017-1-1" },

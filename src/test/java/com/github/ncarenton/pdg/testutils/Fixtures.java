@@ -13,8 +13,11 @@ public class Fixtures {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModules(new JavaTimeModule());
 
-    public static Data DATA;
-    public static Output OUTPUT;
+    public static Data DATA_LEVEL1;
+    public static Output OUTPUT_LEVEL1;
+
+    public static Data DATA_LEVEL2;
+    public static Output OUTPUT_LEVEL2;
 
     public static Data DATA_MISSING_WORKER;
     public static Output OUTPUT_MISSING_WORKER;
@@ -28,8 +31,11 @@ public class Fixtures {
 
     static {
         try {
-            DATA = fromResource("/level1/data.json", Data.class);
-            OUTPUT = fromResource("/level1/output.json", Output.class);
+            DATA_LEVEL1 = fromResource("/level1/data.json", Data.class);
+            OUTPUT_LEVEL1 = fromResource("/level1/output.json", Output.class);
+
+            DATA_LEVEL2 = fromResource("/level2/data.json", Data.class);
+            OUTPUT_LEVEL2 = fromResource("/level2/output.json", Output.class);
 
             DATA_MISSING_WORKER = fromResource("/level1/data_missing_worker.json", Data.class);
             OUTPUT_MISSING_WORKER = fromResource("/level1/output_missing_worker.json", Output.class);

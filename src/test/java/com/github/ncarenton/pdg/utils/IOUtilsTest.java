@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static com.github.ncarenton.pdg.testutils.Fixtures.OUTPUT;
+import static com.github.ncarenton.pdg.testutils.Fixtures.OUTPUT_LEVEL1;
 import static com.github.ncarenton.pdg.testutils.TestUtils.getResourceAsStream;
 import static com.github.ncarenton.pdg.testutils.TestUtils.getResourceAsString;
 import static com.github.ncarenton.pdg.utils.IOUtils.deserialize;
@@ -51,7 +51,7 @@ public class IOUtilsTest {
     public void serialize_should_work() throws IOException, JSONException {
 
         //When
-        String serialized = serialize(OUTPUT);
+        String serialized = serialize(OUTPUT_LEVEL1);
 
         //Then
         JSONAssert.assertEquals(getResourceAsString("/level1/output.json"), serialized, true);

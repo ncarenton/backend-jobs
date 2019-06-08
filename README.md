@@ -1,4 +1,4 @@
-# Planning de Garde level 1 #
+# Planning de Garde level 1 to 2 #
 
 ## Technical view ##
 

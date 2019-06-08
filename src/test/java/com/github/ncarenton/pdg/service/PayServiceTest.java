@@ -6,13 +6,15 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static com.github.ncarenton.pdg.testutils.Fixtures.DATA;
 import static com.github.ncarenton.pdg.testutils.Fixtures.DATA_DUPLICATE_SHIFTS_DUPLICATE_WORKERS;
 import static com.github.ncarenton.pdg.testutils.Fixtures.DATA_EMPTY_SHIFTS;
 import static com.github.ncarenton.pdg.testutils.Fixtures.DATA_EMPTY_WORKERS;
+import static com.github.ncarenton.pdg.testutils.Fixtures.DATA_LEVEL1;
+import static com.github.ncarenton.pdg.testutils.Fixtures.DATA_LEVEL2;
 import static com.github.ncarenton.pdg.testutils.Fixtures.DATA_MISSING_WORKER;
-import static com.github.ncarenton.pdg.testutils.Fixtures.OUTPUT;
 import static com.github.ncarenton.pdg.testutils.Fixtures.OUTPUT_EMPTY_SHIFTS;
+import static com.github.ncarenton.pdg.testutils.Fixtures.OUTPUT_LEVEL1;
+import static com.github.ncarenton.pdg.testutils.Fixtures.OUTPUT_LEVEL2;
 import static com.github.ncarenton.pdg.testutils.Fixtures.OUTPUT_MISSING_WORKER;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,15 +28,27 @@ public class PayServiceTest {
     }
 
     @Test
-    public void getWorkerPays_should_work_default_data() {
+    public void getWorkerPays_should_work_default_data_level1() {
 
         // When
         List<WorkerPay> workerPays = payService.getWorkerPays(
-                DATA.getWorkers(),
-                DATA.getShifts());
+                DATA_LEVEL1.getWorkers(),
+                DATA_LEVEL1.getShifts());
 
         // Then
-        assertThat(workerPays).isEqualTo(OUTPUT.getWorkers());
+        assertThat(workerPays).isEqualTo(OUTPUT_LEVEL1.getWorkers());
+    }
+
+    @Test
+    public void getWorkerPays_should_work_default_data_level2() {
+
+        // When
+        List<WorkerPay> workerPays = payService.getWorkerPays(
+                DATA_LEVEL2.getWorkers(),
+                DATA_LEVEL2.getShifts());
+
+        // Then
+        assertThat(workerPays).isEqualTo(OUTPUT_LEVEL2.getWorkers());
     }
 
     @Test
@@ -82,7 +96,7 @@ public class PayServiceTest {
                 DATA_DUPLICATE_SHIFTS_DUPLICATE_WORKERS.getShifts());
 
         // Then
-        assertThat(workerPays).isEqualTo(OUTPUT.getWorkers());
+        assertThat(workerPays).isEqualTo(OUTPUT_LEVEL1.getWorkers());
     }
 
 }

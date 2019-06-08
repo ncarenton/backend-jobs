@@ -1,14 +1,19 @@
 package com.github.ncarenton.pdg.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Value
-public final class Worker {
+@Getter
+@EqualsAndHashCode
+@AllArgsConstructor
+public abstract class Worker {
 
     @NotNull
     @Min(1)
@@ -17,17 +22,16 @@ public final class Worker {
     @NotBlank
     private final String firstName;
 
-    @NotNull
-    @Min(1)
-    private final Integer pricePerShift;
-
-    public Worker(@JsonProperty("id") Long id,
-                  @JsonProperty("first_name") String firstName,
-                  @JsonProperty("price_per_shift") Integer pricePerShift) {
-        this.id = id;
-        this.firstName = firstName;
-        this.pricePerShift = pricePerShift;
+    @JsonCreator
+    public static Worker create(@JsonProperty("id") Long id,
+                                @JsonProperty("first_name") String firstName,
+                                @JsonProperty("price_per_shift") Integer pricePerShift,
+                                @JsonProperty("status") String status) {
+        return status != null
+               ? new StatusWorker(id, firstName, status) : new PriceWorker(id, firstName, pricePerShift);
     }
+
+    public abstract int getPricePerShift();
 
 }
 
