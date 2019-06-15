@@ -21,11 +21,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LevelSolverServiceTest {
 
-    private LevelSolverService levelSolverService;
+    private LevelSolverService levelSolverServiceForSimpleWeekendFee;
+
+    private LevelSolverService levelSolverServiceForDoubleWeekendFee;
 
     @Before
     public void setUp() {
-        levelSolverService = new LevelSolverService();
+        levelSolverServiceForSimpleWeekendFee = LevelSolverService.forSimpleWeekendFee();
+        levelSolverServiceForDoubleWeekendFee = LevelSolverService.forDoubleWeekendFee();
         TestAppender.clear();
     }
 
@@ -36,7 +39,7 @@ public class LevelSolverServiceTest {
         Path resourcePath = getResourcePath("/level1/data_invalid_field_wrong_type.json");
 
         // When
-        levelSolverService.solve(
+        levelSolverServiceForSimpleWeekendFee.solve(
                 uncheck(() -> Files.newInputStream(resourcePath)),
                 uncheck(ByteArrayOutputStream::new));
 
@@ -55,7 +58,7 @@ public class LevelSolverServiceTest {
         Path resourcePath = getResourcePath("/level1/data_invalid_field_right_type.json");
 
         // When
-        levelSolverService.solve(
+        levelSolverServiceForSimpleWeekendFee.solve(
                 uncheck(() -> Files.newInputStream(resourcePath)),
                 uncheck(ByteArrayOutputStream::new));
 
@@ -75,7 +78,7 @@ public class LevelSolverServiceTest {
         OutputStream outputStream = new ByteArrayOutputStream();
 
         // Then
-        levelSolverService.solve(
+        levelSolverServiceForSimpleWeekendFee.solve(
                 uncheck(() -> Files.newInputStream(resourcePath)),
                 uncheck(() -> outputStream));
 
@@ -96,7 +99,7 @@ public class LevelSolverServiceTest {
         OutputStream outputStream = new ByteArrayOutputStream();
 
         // When
-        levelSolverService.solve(
+        levelSolverServiceForSimpleWeekendFee.solve(
                 uncheck(() -> Files.newInputStream(resourcePath)),
                 uncheck(() -> outputStream));
 
@@ -112,12 +115,28 @@ public class LevelSolverServiceTest {
         OutputStream outputStream = new ByteArrayOutputStream();
 
         // When
-        levelSolverService.solve(
+        levelSolverServiceForSimpleWeekendFee.solve(
                 uncheck(() -> Files.newInputStream(resourcePath)),
                 uncheck(() -> outputStream));
 
         // Then
         JSONAssert.assertEquals(getResourceAsString("/level2/output.json"), outputStream.toString(), true);
+    }
+
+    @Test
+    public void solve_should_work_level3() throws IOException, JSONException, URISyntaxException {
+
+        //Given
+        Path resourcePath = getResourcePath("/level3/data.json");
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        // When
+        levelSolverServiceForDoubleWeekendFee.solve(
+                uncheck(() -> Files.newInputStream(resourcePath)),
+                uncheck(() -> outputStream));
+
+        // Then
+        JSONAssert.assertEquals(getResourceAsString("/level3/output.json"), outputStream.toString(), true);
     }
 
     private <T> Supplier<T> uncheck(StreamSupplier<T> ioSupplier) {

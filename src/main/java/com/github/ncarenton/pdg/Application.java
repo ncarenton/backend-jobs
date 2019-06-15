@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import static java.nio.file.StandardOpenOption.CREATE;
@@ -19,6 +20,13 @@ import static java.nio.file.StandardOpenOption.WRITE;
 
 @Slf4j
 public final class Application {
+
+    @Parameter(
+            names = {"--level", "-l"},
+            required = true,
+            validateWith = LevelValidator.class,
+            description = "Level to solve")
+    private int level;
 
     @Parameter(
             names = {"--input-inputFile", "-i"},
@@ -52,13 +60,35 @@ public final class Application {
 
     private void start() {
         try {
-            new LevelSolverService().solve(
+            getLevelSolverService().solve(
                     uncheck(() -> Files.newInputStream(inputFile, READ)),
                     uncheck(() -> Files.newOutputStream(outputFile, CREATE, TRUNCATE_EXISTING, WRITE))
             );
+
         } catch (Exception e) {
             log.error("Error while running application: " + e);
         }
+    }
+
+    private LevelSolverService getLevelSolverService() {
+
+        LevelSolverService levelSolverService = null;
+
+        switch (level) {
+            case 1:
+            case 2:
+                levelSolverService = LevelSolverService.forSimpleWeekendFee();
+                break;
+            case 3:
+                levelSolverService = LevelSolverService.forDoubleWeekendFee();
+                break;
+            default:
+                log.error("Invalid level: " + level);
+                System.exit(1);
+                break;
+        }
+
+        return Objects.requireNonNull(levelSolverService);
     }
 
     private <T> Supplier<T> uncheck(IOSupplier<T> ioSupplier) {

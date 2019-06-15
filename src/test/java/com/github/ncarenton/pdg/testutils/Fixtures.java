@@ -19,6 +19,9 @@ public class Fixtures {
     public static Data DATA_LEVEL2;
     public static Output OUTPUT_LEVEL2;
 
+    public static Data DATA_LEVEL3;
+    public static Output OUTPUT_LEVEL3;
+
     public static Data DATA_MISSING_WORKER;
     public static Output OUTPUT_MISSING_WORKER;
 
@@ -36,6 +39,9 @@ public class Fixtures {
 
             DATA_LEVEL2 = fromResource("/level2/data.json", Data.class);
             OUTPUT_LEVEL2 = fromResource("/level2/output.json", Output.class);
+
+            DATA_LEVEL3 = fromResource("/level3/data.json", Data.class);
+            OUTPUT_LEVEL3 = fromResource("/level3/output.json", Output.class);
 
             DATA_MISSING_WORKER = fromResource("/level1/data_missing_worker.json", Data.class);
             OUTPUT_MISSING_WORKER = fromResource("/level1/output_missing_worker.json", Output.class);

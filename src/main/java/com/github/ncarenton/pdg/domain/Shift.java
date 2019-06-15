@@ -6,10 +6,18 @@ import lombok.Value;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Set;
+
+import static java.time.DayOfWeek.SATURDAY;
+import static java.time.DayOfWeek.SUNDAY;
 
 @Value
 public final class Shift {
+
+    private static final Set<DayOfWeek> WEEKEND_DAYS = Set.of(SATURDAY, SUNDAY);
+
     @NotNull
     @Min(1)
     private final Long id;
@@ -18,7 +26,6 @@ public final class Shift {
     @Min(1)
     private final Long planningId;
 
-    @NotNull
     @Min(1)
     private final Long userId;
 
@@ -34,5 +41,9 @@ public final class Shift {
         this.planningId = planningId;
         this.userId = userId;
         this.startDate = startDate;
+    }
+
+    public boolean isOnWeekend() {
+        return WEEKEND_DAYS.contains(startDate.getDayOfWeek());
     }
 }

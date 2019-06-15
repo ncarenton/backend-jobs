@@ -20,7 +20,7 @@ public class ApplicationITest {
     public void application_should_work() throws URISyntaxException {
 
         // Given
-        String[] args = {"-i", getResourcePath("/level1/data.json").toString(), "-o", "/dev/null"};
+        String[] args = {"-l", "1", "-i", getResourcePath("/level1/data.json").toString(), "-o", "/dev/null"};
 
         // When
         Application.main(args);
@@ -37,7 +37,7 @@ public class ApplicationITest {
     public void application_should_log_error() {
 
         // Given
-        String[] args = {"-i", "bad_file_path.json", "-o", "/dev/null"};
+        String[] args = {"-l", "1", "-i", "bad_file_path.json", "-o", "/dev/null"};
 
         // When
         Application.main(args);

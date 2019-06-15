@@ -1,4 +1,4 @@
-# Planning de Garde level 1 to 2 #
+# Planning de Garde level 1 to 3 #
 
 ## Technical view ##
 
@@ -27,11 +27,11 @@
 
 #### Using gradle ####
 ```console
-./gradlew run --args="-i [input_file] -o [output_file]"
+./gradlew run --args="-l [level_number] -i [input_file] -o [output_file]"
 ```
 
 #### Using start script ####
 ```console
 unzip build/distributions/planning-de-garde.zip
-./planning-de-garde/bin/planning-de-garde -i [input_file] -o [output_file]
+./planning-de-garde/bin/planning-de-garde -l [level_number] -i [input_file] -o [output_file]
 ```

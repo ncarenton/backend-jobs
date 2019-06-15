@@ -14,6 +14,8 @@ import java.io.OutputStream;
 import java.util.Set;
 import java.util.function.Supplier;
 
+import static com.github.ncarenton.pdg.service.PayService.WeekendShiftPriceMultiplier.WEEKEND_SHIFT_DOUBLE_PRICE_MULTIPLIER;
+import static com.github.ncarenton.pdg.service.PayService.WeekendShiftPriceMultiplier.WEEKEND_SHIFT_SIMPLE_PRICE_MULTIPLIER;
 import static com.github.ncarenton.pdg.utils.IOUtils.deserialize;
 import static com.github.ncarenton.pdg.utils.IOUtils.serialize;
 import static com.github.ncarenton.pdg.utils.IOUtils.writeToOutputStream;
@@ -25,9 +27,17 @@ public final class LevelSolverService {
 
     private final PayService payService;
 
-    public LevelSolverService() {
-        validator = Validation.buildDefaultValidatorFactory().getValidator();
-        payService = new PayService();
+    private LevelSolverService(PayService payService) {
+        this.validator = Validation.buildDefaultValidatorFactory().getValidator();
+        this.payService = payService;
+    }
+
+    public static LevelSolverService forSimpleWeekendFee() {
+        return new LevelSolverService(new PayService(WEEKEND_SHIFT_SIMPLE_PRICE_MULTIPLIER));
+    }
+
+    public static LevelSolverService forDoubleWeekendFee() {
+        return new LevelSolverService(new PayService(WEEKEND_SHIFT_DOUBLE_PRICE_MULTIPLIER));
     }
 
     public void solve(Supplier<InputStream> inputStream, Supplier<OutputStream> outputStream) {
