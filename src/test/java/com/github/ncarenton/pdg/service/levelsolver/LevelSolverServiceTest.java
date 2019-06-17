@@ -1,4 +1,4 @@
-package com.github.ncarenton.pdg.service;
+package com.github.ncarenton.pdg.service.levelsolver;
 
 import com.github.ncarenton.pdg.testutils.TestAppender;
 import org.json.JSONException;
@@ -21,14 +21,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LevelSolverServiceTest {
 
-    private LevelSolverService levelSolverServiceForSimpleWeekendFee;
+    private LevelSolverServiceWithNoCommission levelSolverServiceForSimpleWeekendFee;
 
-    private LevelSolverService levelSolverServiceForDoubleWeekendFee;
+    private LevelSolverServiceWithNoCommission levelSolverServiceForDoubleWeekendFee;
+
+    private LevelSolverServiceWithCommission levelSolverServiceWithCommissionComputation;
 
     @Before
     public void setUp() {
+
         levelSolverServiceForSimpleWeekendFee = LevelSolverService.forSimpleWeekendFee();
         levelSolverServiceForDoubleWeekendFee = LevelSolverService.forDoubleWeekendFee();
+        levelSolverServiceWithCommissionComputation = LevelSolverService.withCommission();
+
         TestAppender.clear();
     }
 
@@ -136,7 +141,24 @@ public class LevelSolverServiceTest {
                 uncheck(() -> outputStream));
 
         // Then
+        getResourceAsString("/level3/output.json");
         JSONAssert.assertEquals(getResourceAsString("/level3/output.json"), outputStream.toString(), true);
+    }
+
+    @Test
+    public void solve_should_work_level4() throws IOException, JSONException, URISyntaxException {
+
+        //Given
+        Path resourcePath = getResourcePath("/level4/data.json");
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        // When
+        levelSolverServiceWithCommissionComputation.solve(
+                uncheck(() -> Files.newInputStream(resourcePath)),
+                uncheck(() -> outputStream));
+
+        // Then
+        JSONAssert.assertEquals(getResourceAsString("/level4/output.json"), outputStream.toString(), true);
     }
 
     private <T> Supplier<T> uncheck(StreamSupplier<T> ioSupplier) {

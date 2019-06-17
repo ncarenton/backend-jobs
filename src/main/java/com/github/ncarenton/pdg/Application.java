@@ -3,7 +3,7 @@ package com.github.ncarenton.pdg;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
-import com.github.ncarenton.pdg.service.LevelSolverService;
+import com.github.ncarenton.pdg.service.levelsolver.LevelSolverService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -70,7 +70,7 @@ public final class Application {
         }
     }
 
-    private LevelSolverService getLevelSolverService() {
+    private LevelSolverService<?> getLevelSolverService() {
 
         LevelSolverService levelSolverService = null;
 
@@ -81,6 +81,9 @@ public final class Application {
                 break;
             case 3:
                 levelSolverService = LevelSolverService.forDoubleWeekendFee();
+                break;
+            case 4:
+                levelSolverService = LevelSolverService.withCommission();
                 break;
             default:
                 log.error("Invalid level: " + level);

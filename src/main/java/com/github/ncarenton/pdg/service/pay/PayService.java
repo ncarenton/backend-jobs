@@ -1,4 +1,4 @@
-package com.github.ncarenton.pdg.service;
+package com.github.ncarenton.pdg.service.pay;
 
 import com.github.ncarenton.pdg.domain.Output.WorkerPay;
 import com.github.ncarenton.pdg.domain.Shift;
@@ -24,9 +24,8 @@ public class PayService {
         this.weekendShiftPriceMultiplier = weekendShiftPriceMultiplier;
     }
 
-    public List<WorkerPay> getWorkerPays(Set<Worker> workers, Set<Shift> shifts) {
+    public List<WorkerPay> getWorkerPays(Set<? extends Worker> workers, Set<Shift> shifts) {
         Map<Long, Set<Shift>> shiftsByUserId = groupShiftsByWorkers(shifts);
-
         return workers
                 .stream()
                 .map(w -> getWorkerPay(shiftsByUserId.getOrDefault(w.getId(), Collections.emptySet()), w))

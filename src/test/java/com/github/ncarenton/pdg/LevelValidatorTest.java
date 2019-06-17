@@ -15,7 +15,7 @@ public class LevelValidatorTest {
 
     @Test
     public void validate_should_work() {
-        levelValidator.validate("level", "3");
+        levelValidator.validate("level", "4");
     }
 
     @Test(expected = ParameterException.class)

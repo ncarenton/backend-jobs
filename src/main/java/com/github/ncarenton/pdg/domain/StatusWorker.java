@@ -12,7 +12,7 @@ import java.util.Arrays;
 public final class StatusWorker extends Worker {
 
     @NotNull
-    @Pattern(regexp = "medic|interne")
+    @Pattern(regexp = "medic|interne|interim")
     private final String status;
 
     public StatusWorker(Long id,
@@ -24,12 +24,17 @@ public final class StatusWorker extends Worker {
 
     @Override
     public int getPricePerShift() {
-        return Status.lookup(status).pricePerShift;
+        return getStatus().pricePerShift;
     }
 
-    private enum Status {
+    public Status getStatus() {
+        return Status.lookup(status);
+    }
+
+    public enum Status {
         MEDIC(270),
-        INTERNE(126);
+        INTERNE(126),
+        INTERIM(480);
 
         private final int pricePerShift;
 

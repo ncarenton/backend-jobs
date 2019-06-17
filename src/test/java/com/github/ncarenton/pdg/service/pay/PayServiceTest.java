@@ -1,4 +1,4 @@
-package com.github.ncarenton.pdg.service;
+package com.github.ncarenton.pdg.service.pay;
 
 import com.github.ncarenton.pdg.domain.Output.WorkerPay;
 import org.junit.Before;
@@ -6,19 +6,21 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static com.github.ncarenton.pdg.service.PayService.WeekendShiftPriceMultiplier.WEEKEND_SHIFT_DOUBLE_PRICE_MULTIPLIER;
-import static com.github.ncarenton.pdg.service.PayService.WeekendShiftPriceMultiplier.WEEKEND_SHIFT_SIMPLE_PRICE_MULTIPLIER;
+import static com.github.ncarenton.pdg.service.pay.PayService.WeekendShiftPriceMultiplier.WEEKEND_SHIFT_DOUBLE_PRICE_MULTIPLIER;
+import static com.github.ncarenton.pdg.service.pay.PayService.WeekendShiftPriceMultiplier.WEEKEND_SHIFT_SIMPLE_PRICE_MULTIPLIER;
 import static com.github.ncarenton.pdg.testutils.Fixtures.DATA_DUPLICATE_SHIFTS_DUPLICATE_WORKERS;
 import static com.github.ncarenton.pdg.testutils.Fixtures.DATA_EMPTY_SHIFTS;
 import static com.github.ncarenton.pdg.testutils.Fixtures.DATA_EMPTY_WORKERS;
 import static com.github.ncarenton.pdg.testutils.Fixtures.DATA_LEVEL1;
 import static com.github.ncarenton.pdg.testutils.Fixtures.DATA_LEVEL2;
 import static com.github.ncarenton.pdg.testutils.Fixtures.DATA_LEVEL3;
+import static com.github.ncarenton.pdg.testutils.Fixtures.DATA_LEVEL4;
 import static com.github.ncarenton.pdg.testutils.Fixtures.DATA_MISSING_WORKER;
 import static com.github.ncarenton.pdg.testutils.Fixtures.OUTPUT_EMPTY_SHIFTS;
 import static com.github.ncarenton.pdg.testutils.Fixtures.OUTPUT_LEVEL1;
 import static com.github.ncarenton.pdg.testutils.Fixtures.OUTPUT_LEVEL2;
 import static com.github.ncarenton.pdg.testutils.Fixtures.OUTPUT_LEVEL3;
+import static com.github.ncarenton.pdg.testutils.Fixtures.OUTPUT_LEVEL4;
 import static com.github.ncarenton.pdg.testutils.Fixtures.OUTPUT_MISSING_WORKER;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -68,6 +70,18 @@ public class PayServiceTest {
 
         // Then
         assertThat(workerPays).isEqualTo(OUTPUT_LEVEL3.getWorkers());
+    }
+
+    @Test
+    public void getWorkerPays_should_work_default_data_level4() {
+
+        // When
+        List<WorkerPay> workerPays = payServiceDoubleWeekendFee.getWorkerPays(
+                DATA_LEVEL4.getWorkers(),
+                DATA_LEVEL4.getShifts());
+
+        // Then
+        assertThat(workerPays).isEqualTo(OUTPUT_LEVEL4.getWorkers());
     }
 
     @Test
